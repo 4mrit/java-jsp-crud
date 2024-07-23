@@ -36,15 +36,15 @@ public class Student {
     return address;
   }
 
-  public void setAddress(String position) {
-    this.address = position;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   public double getFee() {
     return fee;
   }
 
-  public void setFee(double salary) {
-    this.fee = salary;
+  public void setFee(double fee) {
+    this.fee = fee;
   }
 }

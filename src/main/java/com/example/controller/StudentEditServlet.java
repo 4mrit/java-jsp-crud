@@ -12,28 +12,49 @@ import javax.servlet.http.HttpServletResponse;
 import com.example.dao.StudentDao;
 import com.example.model.Student;
 
-public class StudentAddServlet extends HttpServlet {
+public class StudentEditServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    RequestDispatcher student_add_jsp = request.getRequestDispatcher("/student/add.jsp");
-    student_add_jsp.forward(request, response);
-  }
+    String idString = request.getParameter("id");
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String name = request.getParameter("name");
-    String address = request.getParameter("address");
-    String feeStr = request.getParameter("fee");
-
-    if (name.isEmpty() || address.isEmpty() || feeStr.isEmpty()) {
+    if (idString.isEmpty()) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       PrintWriter printWriter = response.getWriter();
-      printWriter.print("All fields are required: name, address, and fees.");
+      printWriter.print("Id is Required !!");
       return;
     }
 
     try {
+      int id = Integer.parseInt(idString);
+      Student student = StudentDao.getStudent(id);
+      request.setAttribute("student", student);
+      RequestDispatcher student_edit_jsp = request.getRequestDispatcher("/student/edit.jsp");
+      student_edit_jsp.forward(request, response);
+    } catch (Exception e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      response.getWriter().print("Error Updating Students !!");
+    }
+  }
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String idString = request.getParameter("id");
+    String name = request.getParameter("name");
+    String address = request.getParameter("address");
+    String feeStr = request.getParameter("fee");
+
+    if (idString.isEmpty() || name.isEmpty() || address.isEmpty() || feeStr.isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      PrintWriter printWriter = response.getWriter();
+      printWriter.print("All fields are required: id ,name,address, and fees.");
+      return;
+    }
+
+    try {
+      int id = Integer.parseInt(idString);
       double fee = Double.parseDouble(feeStr);
       Student student = new Student(name, address, fee);
-      StudentDao.addStudent(student);
+      student.setId(id);
+
+      StudentDao.updateStudent(student);
       response.sendRedirect("/crud/students");
     } catch (Exception e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -20,6 +20,23 @@
         <servlet-name>StudentAddServlet</servlet-name>
         <url-pattern>/students/add</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>StudentEditServlet</servlet-name>
+        <servlet-class>com.example.controller.StudentEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentEditServlet</servlet-name>
+        <url-pattern>/students/update</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>StudentDeleteServlet</servlet-name>
+        <servlet-class>com.example.controller.StudentDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentDeleteServlet</servlet-name>
+        <url-pattern>/students/delete</url-pattern>
+    </servlet-mapping>
 </web-app>
 

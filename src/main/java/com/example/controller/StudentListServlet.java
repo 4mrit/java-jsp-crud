@@ -25,7 +25,7 @@ public class StudentListServlet extends HttpServlet {
     try {
       students = StudentDao.getAllStudents();
       request.setAttribute("students", students);
-      RequestDispatcher student_list_jsp = request.getRequestDispatcher("/student/list.jsp");
+      RequestDispatcher student_list_jsp = request.getRequestDispatcher("student/list.jsp");
       student_list_jsp.forward(request, response);
     } catch (Exception e) {
       e.printStackTrace();

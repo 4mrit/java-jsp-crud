@@ -87,7 +87,7 @@ public class StudentDao {
   public static void updateStudent(Student student) {
     try {
       Connection connection = getDbConnection();
-      PreparedStatement statement = connection.prepareStatement("UPDATE student"
+      PreparedStatement statement = connection.prepareStatement("UPDATE students"
           + " SET name=?, address=?, fee=?"
           + " WHERE id=? ;");
 
@@ -100,7 +100,7 @@ public class StudentDao {
       System.out.println("Updated" + rowsAffected + " rows successfully !!");
       connection.close();
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 
