@@ -23,7 +23,7 @@ public class StudentDao {
     try {
       Connection connection = getDbConnection();
       PreparedStatement statement = connection.prepareStatement("INSERT INTO students"
-          + "( Name ,Position, Salary )"
+          + "( Name ,Address, Fee )"
           + "VALUES"
           + "( ?, ?, ?);");
 
@@ -51,8 +51,8 @@ public class StudentDao {
         Student student = new Student();
         student.setId(resultSet.getInt("id"));
         student.setName(resultSet.getString("name"));
-        student.setAddress(resultSet.getString("position"));
-        student.setFee(resultSet.getDouble("salary"));
+        student.setAddress(resultSet.getString("address"));
+        student.setFee(resultSet.getDouble("fee"));
         studentList.add(student);
       }
       connection.close();
@@ -66,7 +66,7 @@ public class StudentDao {
     Student student = new Student();
     try {
       Connection connection = getDbConnection();
-      PreparedStatement statement = connection.prepareStatement("SELECT FROM students WHERE Id = ?;");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM students WHERE Id = ?;");
 
       statement.setInt(1, studentId);
 
@@ -74,8 +74,8 @@ public class StudentDao {
       while (resultSet.next()) {
         student.setId(resultSet.getInt("id"));
         student.setName(resultSet.getString("name"));
-        student.setAddress(resultSet.getString("position"));
-        student.setFee(resultSet.getDouble("salary"));
+        student.setAddress(resultSet.getString("address"));
+        student.setFee(resultSet.getDouble("fee"));
         connection.close();
       }
     } catch (Exception e) {
@@ -88,7 +88,7 @@ public class StudentDao {
     try {
       Connection connection = getDbConnection();
       PreparedStatement statement = connection.prepareStatement("UPDATE student"
-          + " SET name=?, position=?, salary=?"
+          + " SET name=?, address=?, fee=?"
           + " WHERE id=? ;");
 
       statement.setString(1, student.getName());

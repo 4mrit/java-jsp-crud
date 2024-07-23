@@ -7,6 +7,15 @@ public class Student {
   private String address;
   private double fee;
 
+  public Student() {
+  }
+
+  public Student(String name, String address, double fee) {
+    this.name = name;
+    this.address = address;
+    this.fee = fee;
+  }
+
   public int getId() {
     return id;
   }

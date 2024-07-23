@@ -17,13 +17,7 @@ public class StudentListServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String pathInfo = request.getPathInfo();
-    if (pathInfo == null || pathInfo.equals("/")) {
-      listStudents(request, response);
-    } else {
-      int studentId = Integer.parseInt(pathInfo.substring(0));
-      getStudent(studentId, request, response);
-    }
+    listStudents(request, response);
   }
 
   private void listStudents(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -31,23 +25,8 @@ public class StudentListServlet extends HttpServlet {
     try {
       students = StudentDao.getAllStudents();
       request.setAttribute("students", students);
-      RequestDispatcher surakshi_list_jsp = request.getRequestDispatcher("/student/list.jsp");
-      surakshi_list_jsp.forward(request, response);
-    } catch (Exception e) {
-      e.printStackTrace();
-      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      PrintWriter printWriter = response.getWriter();
-      printWriter.print("Internal server Error !!\n" + e.getMessage());
-    }
-  }
-
-  private void getStudent(int studentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Student student;
-    try {
-      student = StudentDao.getStudent(studentId);
-      request.setAttribute("student", student);
-      RequestDispatcher student_view_jsp = request.getRequestDispatcher("/student/view.jsp");
-      student_view_jsp.forward(request, response);
+      RequestDispatcher student_list_jsp = request.getRequestDispatcher("/student/list.jsp");
+      student_list_jsp.forward(request, response);
     } catch (Exception e) {
       e.printStackTrace();
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

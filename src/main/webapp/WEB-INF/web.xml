@@ -9,7 +9,17 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentListServlet</servlet-name>
-        <url-pattern>/students/*</url-pattern>
+        <url-pattern>/students</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StudentAddServlet</servlet-name>
+        <servlet-class>com.example.controller.StudentAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentAddServlet</servlet-name>
+        <url-pattern>/students/add</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
